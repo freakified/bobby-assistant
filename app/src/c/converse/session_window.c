@@ -28,7 +28,7 @@
 
 #include "report_window.h"
 
-#define PADDING 5
+#define PADDING PBL_IF_ROUND_ELSE(32,5)
 
 struct SessionWindow {
   Window* window;
@@ -328,7 +328,8 @@ static void prv_conversation_manager_handler(bool entry_added, void* context) {
     free(sw->segment_layers);
     sw->segment_layers = new_block;
   }
-  SegmentLayer* layer = segment_layer_create(GRect(0, prv_content_height(sw), holder_size.w, 10), entry, conversation_assistant_just_started(conversation));
+  // Add left padding to segment layer on round devices
+  SegmentLayer* layer = segment_layer_create(GRect(PBL_IF_ROUND_ELSE(32,0), prv_content_height(sw), holder_size.w, 10), entry, conversation_assistant_just_started(conversation));
   sw->segment_layers[sw->segment_count++] = layer;
   scroll_layer_add_child(sw->scroll_layer, layer);
   int layer_height = layer_get_frame(layer).size.h;

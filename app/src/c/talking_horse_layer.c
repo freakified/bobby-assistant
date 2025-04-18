@@ -68,7 +68,7 @@ static void prv_update_layer(Layer *layer, GContext *ctx) {
 
   const int text_height = data->text_size.h + 5;
   const int speech_bubble_top = 1;
-  const int available_space = bounds.size.w - 18 - data->text_size.w - 10;
+  const int available_space = bounds.size.w - PBL_IF_ROUND_ELSE(50,18) - data->text_size.w - 10;
   const int bubble_width = size.w - 16 - available_space;
   const int corner_offset = 6;
 

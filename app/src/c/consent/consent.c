@@ -96,11 +96,11 @@ static void prv_window_load(Window *window) {
   GRect window_bounds = layer_get_frame(root_layer);
   data->scroll_layer = scroll_layer_create(window_bounds);
   scroll_layer_set_click_config_onto_window(data->scroll_layer, window);
-  data->title_layer = text_layer_create(GRect(0, 0, window_bounds.size.w, 30));
+  data->title_layer = text_layer_create(GRect(0, PBL_IF_ROUND_ELSE(16,0), window_bounds.size.w, 30));
   text_layer_set_text_alignment(data->title_layer, GTextAlignmentCenter);
   text_layer_set_font(data->title_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-  data->text_layer = text_layer_create(GRect(10, 30, window_bounds.size.w - 20, window_bounds.size.h - 30));
-  text_layer_set_font(data->text_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+  data->text_layer = text_layer_create(GRect(10, PBL_IF_ROUND_ELSE(46,0), window_bounds.size.w - 20, window_bounds.size.h - 30));
+  text_layer_set_font(data->text_layer, fonts_get_system_font( FONT_KEY_GOTHIC_24));
   data->select_indicator_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BUTTON_INDICATOR);
   data->select_indicator_layer = bitmap_layer_create(
     GRect(window_bounds.size.w - 5, window_bounds.size.h / 2 - 10, 5, 20));
@@ -185,6 +185,16 @@ static void prv_set_stage(Window* window, int stage) {
   text_layer_set_text(data->title_layer, data->title_text);
   text_layer_set_text(data->text_layer, data->current_text);
   GSize window_size = layer_get_frame(window_get_root_layer(window)).size;
+  scroll_layer_set_content_offset(data->scroll_layer, GPoint(0, 0), false);
+  #ifdef PBL_ROUND
+  text_layer_set_text_alignment(data->text_layer, GTextAlignmentCenter);
+  text_layer_set_size(data->text_layer, GSize(window_size.w - 16, 3000));
+  text_layer_enable_screen_text_flow_and_paging(data->text_layer, 14);
+  text_layer_enable_screen_text_flow_and_paging(data->title_layer, 14);
+  scroll_layer_set_paging(data->scroll_layer, true);
+  GSize paged_size = text_layer_get_content_size(data->text_layer);
+  scroll_layer_set_content_size(data->scroll_layer, GSize(paged_size.w, paged_size.h + 33));
+  #else
   GSize text_size = graphics_text_layout_get_content_size(
     data->current_text,
     fonts_get_system_font(FONT_KEY_GOTHIC_24),
@@ -194,7 +204,7 @@ static void prv_set_stage(Window* window, int stage) {
   text_size.h += 5;
   text_layer_set_size(data->text_layer, text_size);
   scroll_layer_set_content_size(data->scroll_layer, GSize(window_size.w, 33 + text_size.h));
-  scroll_layer_set_content_offset(data->scroll_layer, GPoint(0, 0), false);
+  #endif
 }
 
 static bool prv_did_scroll_to_bottom(Window* window) {

@@ -27,7 +27,7 @@
 #include <pebble.h>
 
 
-#define CONTENT_FONT FONT_KEY_GOTHIC_24_BOLD
+#define PBL_CONTENT_FONT PBL_IF_ROUND_ELSE(FONT_KEY_GOTHIC_18_BOLD, FONT_KEY_GOTHIC_24_BOLD)
 #define NAME_HEIGHT 20
 
 typedef enum {
@@ -66,12 +66,13 @@ SegmentLayer* segment_layer_create(GRect rect, ConversationEntry* entry, bool as
   SegmentLayerData* data = layer_get_data(layer);
   data->entry = entry;
   data->type = prv_get_segment_type(entry);
-  GRect child_frame = GRect(0, 0, rect.size.w, rect.size.h);
+  // Add invisible right padding for text layers on round devices
+  GRect child_frame = GRect(0, 0, PBL_IF_ROUND_ELSE(rect.size.w - 18, rect.size.w), rect.size.h);
   if (assistant_label) {
     data->assistant_label_layer = text_layer_create(GRect(5, 0, rect.size.w, NAME_HEIGHT));
     layer_add_child(layer, text_layer_get_layer(data->assistant_label_layer));
     text_layer_set_text(data->assistant_label_layer, "Bobby");
-    child_frame = GRect(0, NAME_HEIGHT, rect.size.w, rect.size.h - NAME_HEIGHT);
+    child_frame = GRect(0, NAME_HEIGHT, PBL_IF_ROUND_ELSE(rect.size.w - 18, rect.size.w), rect.size.h - NAME_HEIGHT);
   } else {
     data->assistant_label_layer = NULL;
   }

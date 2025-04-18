@@ -21,6 +21,7 @@
     ],
     "targetPlatforms": [
       "basalt",
+      "chalk",
       "diorite"
     ],
     "watchapp": {
@@ -320,7 +321,7 @@
           "name": "MENU_ICON_ABOUT",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -337,7 +338,7 @@
           "name": "MENU_ICON_ALARMS",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -354,7 +355,7 @@
           "name": "MENU_ICON_FEEDBACK",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -371,7 +372,7 @@
           "name": "MENU_ICON_LEGAL",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -388,7 +389,7 @@
           "name": "MENU_ICON_QUOTA",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -405,7 +406,7 @@
           "name": "MENU_ICON_REMINDERS",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -422,7 +423,7 @@
           "name": "MENU_ICON_TIMERS",
           "type": "bitmap",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
@@ -470,7 +471,7 @@
           "type": "bitmap",
           "memoryFormat": "2BitPalette",
           "targetPlatforms": [
-            "basalt"
+            "basalt", "chalk"
           ]
         },
         {
